@@ -18,7 +18,7 @@ async function getContactById(contactId) {
   try {
     const contacts = await listContacts();
 
-    return contacts.find(({ id }) => id === Number(contactId));
+    return contacts.find(({ id }) => String(id) === contactId);
   } catch (error) {
     throw error;
   }
@@ -28,7 +28,7 @@ async function removeContact(contactId) {
   try {
     const contacts = await listContacts();
     const newContacts = JSON.stringify(
-      contacts.filter(({ id }) => id !== Number(contactId))
+      contacts.filter(({ id }) => String(id) !== contactId)
     );
 
     fs.writeFile(contactsPath, newContacts);
